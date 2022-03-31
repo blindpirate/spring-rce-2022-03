@@ -21,3 +21,16 @@ It uses bytecode manipulation to replace vulnerable Spring `org.springframework.
         return ret;
     }
 ```
+
+Example output:
+
+```
+$ java -jar spring-rce-2022-03-hotfix-all.jar ~/Downloads/demo
+Found vulnerable DataBinder.class in demo-0.0.1-SNAPSHOT.jar-spring-context-5.3.17.jar, patching...
+Successfully patched /Users/zhb/Downloads/demo/target/demo-0.0.1-SNAPSHOT.jar.
+Vulnerability not found in /Users/zhb/Downloads/demo/.mvn/wrapper/maven-wrapper.jar.
+```
+
+After patching, `isAllowed()` returns `false` for the malicious payload containing `class.*`:
+
+![poc](./poc.png)
